@@ -5,13 +5,22 @@
 {% endblock %}
 
 {% block content %}
-<h3>7 Day shift pattern</h3>
-<p><a href="/shift?section=1">Section 1</a></p>
-<p><a href="/shift?section=2">Section 2</a></p>
-<p><a href="/shift?section=3">Section 3</a></p>
-<p><a href="/shift?section=4">Section 4</a></p>
-<p><a href="/shift?section=5">Section 5</a></p>
-<p><a href="/shift?balls=5">Section 5</a></p>
+<h3>Select shift and date</h3>
+<form action="shift/" method="get">
+  <p>Choose date: <input type="date" name="dateSelected"></p>
+
+  <select name="section">
+    <option value="1">Section 1</option>
+    <option value="2">Section 2</option>
+    <option value="3">Section 3</option>
+    <option value="4">Section 4</option>
+    <option value="5">Section 5</option>
+  </select>
+
+  <input type="submit" value="Submit">
+</form>
+
+
 
 
 {% endblock %}
