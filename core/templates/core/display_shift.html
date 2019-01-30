@@ -1,0 +1,23 @@
+{% extends "core/base.html" %}
+
+{% block title %}
+<title>Display Shift</title>
+{% endblock %}
+
+{% block content %}
+<h3>Select shift and date</h3>
+<form action="{% url 'shift' %}" method="get">
+  <p>Choose date: <input type="date" name="dateSelected"></p>
+
+  <select name="section">
+    <option value="1">Section 1</option>
+    <option value="2">Section 2</option>
+    <option value="3">Section 3</option>
+    <option value="4">Section 4</option>
+    <option value="5">Section 5</option>
+  </select>
+
+  <input type="submit" value="Submit">
+</form>
+
+{% endblock %}
