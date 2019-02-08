@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from datetime import date #used in shift view
 from datetime import datetime #used in shift view
+from datetime import timedelta#used in add employee to rota view
 from django.http import HttpResponseNotFound
 from .models import Shift
 from .forms import ShiftForm
@@ -60,6 +61,16 @@ def shift(request):
     'date':displayDate}
     return render(request, 'core/shift.html',context)
 #shift view end----------------------------------------------------------------
+def add_employee_rota(request):
+    shiftPattern = ['1st Early','2nd Early','1st Late','2nd Late',
+    '1st Night','2nd Night','1st Rest Day','2nd Rest Day',
+    '3rd Rest Day','4th Rest Day']
+    shiftDate=datetime.now()
+    for i in range(0,365):
+        s = Shift(collarNumber=45,date=shiftDate,startTime=shiftDate,endTime=shiftDate,notes=getShiftOnDate(shiftDate,datetime(2019,1,11),shiftPattern))
+        shiftDate = shiftDate + timedelta(days=1)
+        s.save()
+    return render(request, 'core/add_employee_rota.html',context={})
 
 #shift_amend_view-------------------------------------------------------------
 def shift_amend_view(request):
