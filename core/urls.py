@@ -8,5 +8,6 @@ urlpatterns = [
     path('shift/', views.shift, name="shift"),
     path('display_shift/', views.display_shift, name="display_shift"),
     path('add_employee_rota/', views.add_employee_rota, name="add_employee_rota"),
+    path('add_employee', views.add_employee_view, name="add_employee_view"),
     path('', views.index, name="index"),
 ]

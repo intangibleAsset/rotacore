@@ -3,14 +3,11 @@ from datetime import date #used in shift view
 from datetime import datetime #used in shift view
 from datetime import timedelta#used in add employee to rota view
 from django.http import HttpResponseNotFound
-from .models import Shift
-from .forms import ShiftForm
-# Create your views here.
 
-#method for calculating shifts on a given datetime date
-def getShiftOnDate(shiftDate, shiftPatternStartDate, shiftPattern):
-    difference = (shiftDate - shiftPatternStartDate).days
-    return shiftPattern[difference%len(shiftPattern)]
+from .models import Shift, Employee
+from .forms import ShiftForm, EmployeeForm
+
+from . shiftFunctions import getShiftOnDate
 
 #index view -------------------------------------------------------------------
 def index(request):
@@ -67,7 +64,7 @@ def add_employee_rota(request):
     '3rd Rest Day','4th Rest Day']
     shiftDate=datetime.now()
     for i in range(0,365):
-        s = Shift(collarNumber=45,date=shiftDate,startTime=shiftDate,endTime=shiftDate,notes=getShiftOnDate(shiftDate,datetime(2019,1,11),shiftPattern))
+        s = Shift(emp=Employee,date=shiftDate,startTime=shiftDate,endTime=shiftDate,notes=getShiftOnDate(shiftDate,datetime(2019,1,11),shiftPattern))
         shiftDate = shiftDate + timedelta(days=1)
         s.save()
     return render(request, 'core/add_employee_rota.html',context={})
@@ -86,3 +83,15 @@ def shift_amend_view(request):
     }
     return render(request,"core/shift_amend.html",context)
 #shift_amend_view end----------------------------------------------------------
+def add_employee_view(request):
+    form = EmployeeForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        form = ShiftForm()
+
+
+    print(request.POST)
+    context = {
+        "form":form
+    }
+    return render(request,"core/add_employee.html",context)
