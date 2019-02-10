@@ -27,15 +27,15 @@ def shift(request):
 
     #the dates shift patterns start for each section
     if section == "1":
-        startDate = datetime(2019,1,9)
+        startDate = date(2019,1,9)
     elif section == "2":
-        startDate = datetime(2019,1,11)
+        startDate = date(2019,1,11)
     elif section == "3":
-        startDate = datetime(2019,1,13)
+        startDate = date(2019,1,13)
     elif section == "4":
-        startDate = datetime(2019,1,15)
+        startDate = date(2019,1,15)
     elif section == "5":
-        startDate = datetime(2019,1,17)
+        startDate = date(2019,1,17)
     else:
         return HttpResponseNotFound('<h1>Invalid section data</h1>')
     #convert user inputted date to datetime object for comparison
@@ -48,7 +48,7 @@ def shift(request):
 
     #use getShiftOnDate funcion to calculate which shift
     #individual will be on a given date
-    shift = getShiftOnDate(datetimeObjectFromInputtedDate,startDate,shiftPattern)
+    shift = getShiftOnDate(datetimeObjectFromInputtedDate.date(),startDate,shiftPattern)
     weekday = datetimeObjectFromInputtedDate.strftime('%A')
     displayDate = datetimeObjectFromInputtedDate.strftime('%d/%m/%Y')
 
